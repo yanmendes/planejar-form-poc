@@ -17,6 +17,9 @@ app.get('/form', (_, res) => {
 })
 
 app.get('/autocomplete', (req, res) => {
+  if(!req.query.keyword) {
+    res.status(400).send('Invalid keyword. Valid request format: /autocomplete?keyword=foo')
+  }
   res.json({
     entries: autocomplete.filter(v =>
       slugify(v.toLocaleLowerCase())
